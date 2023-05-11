@@ -69,8 +69,9 @@ geom_scatterpie <- function(mapping=NULL, data, cols, pie_scale = 1, sorted_by_r
     if (!"group" %in% names(mapping)){
       xvar <- get_aes_var(mapping, 'x0')
       yvar <- get_aes_var(mapping, 'y0')
-      df <- df |> dplyr::group_by(!!xvar, !!yvar) |>
-       dplyr::group_split() |> as.list()
+      df <- df |> 
+      dplyr::group_by(!!xvar, !!yvar) |>
+      dplyr::group_split() |> as.list()
       names(df) <- seq_len(length(df))
       df <- dplyr::bind_rows(df, .id=".group.id")
       mapping <- modifyList(mapping, aes_(group = ~.group.id))
